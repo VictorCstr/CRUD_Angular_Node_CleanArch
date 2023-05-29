@@ -95,9 +95,20 @@ export class PostgresVehicleRepository implements IVehicleRepository {
       throw new ApiError(400, error);
     }
   }
-  async delete(projectId: string): Promise<Vehicle> {
+  async delete(vehicleId?: string, placa?: string): Promise<boolean> {
     try {
-      throw new Error("Method not implemented yet");
+      vehicleId != null
+        ? await prisma.vehicle.delete({
+            where: {
+              id: vehicleId,
+            },
+          })
+        : await prisma.vehicle.delete({
+            where: {
+              placa,
+            },
+          });
+      return true;
     } catch (error) {
       console.log(error);
       throw new ApiError(400, error);

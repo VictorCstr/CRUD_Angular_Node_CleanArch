@@ -3,6 +3,7 @@ import { ApiError } from "../errors";
 import { getAllVehiclesUseCase } from "../useCases/vehicle/getAllVehiclesUseCase";
 import { createVehicleUseCase } from "../useCases/vehicle/createVehicleUseCase";
 import { getOneVehicleUseCase } from "../useCases/vehicle/getOneVehicleUseCase";
+import { deleteVehicleUseCase } from "../useCases/vehicle/deleteVehicleUseCase";
 
 const routes = express.Router();
 
@@ -44,6 +45,22 @@ routes.post("/vehicle", async (req, res) => {
       renavam,
     });
     return res.status(201).json(vehicle);
+  } catch (err) {
+    console.log(err);
+    return res.status(400).json({ message: err || "Unexpected Error" });
+  }
+});
+
+routes.delete("/vehicle/:id", async (req, res) => {
+  try {
+    const vehicleId = req.params.id;
+    const { placa } = req.body;
+
+    const vehicle = await deleteVehicleUseCase.execute({
+      placa,
+      vehicleId,
+    });
+    return res.status(200).json(vehicle);
   } catch (err) {
     console.log(err);
     return res.status(400).json({ message: err || "Unexpected Error" });

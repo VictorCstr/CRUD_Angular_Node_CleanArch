@@ -1,18 +1,18 @@
-import { IGetOneVehicleDTO } from "./getOneVehicleDTO";
+import { IDeleteVehicleDTO } from "./deleteVehicleDTO";
 import { IVehicleRepository } from "../../../interfaces/IVehicleRepository";
 import { ApiError } from "../../../errors";
 import { Vehicle } from "../../../entities/Vehicle";
 
-export class GetOneVehicleUseCase {
+export class DeleteVehicleUseCase {
   constructor(private vehicleRepository: IVehicleRepository) {}
 
-  async execute(data: IGetOneVehicleDTO): Promise<Vehicle> {
-    const { placa, vehicleId } = data;
+  async execute(data: IDeleteVehicleDTO): Promise<Boolean> {
+    const { vehicleId, placa } = data;
 
     const existVehicle = await this.vehicleRepository.getOne(vehicleId, placa);
 
     if (!existVehicle) throw new ApiError(400, "Veículo não localizado!");
 
-    return existVehicle;
+    return await this.vehicleRepository.delete(vehicleId, placa);
   }
 }

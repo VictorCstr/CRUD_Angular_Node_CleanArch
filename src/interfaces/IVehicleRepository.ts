@@ -5,5 +5,5 @@ export interface IVehicleRepository {
   getAll(): Promise<Vehicle[]>;
   getOne(vehicleId?: string, placa?: string): Promise<Vehicle>;
   updateProject(vehicle: Vehicle): Promise<Vehicle>;
-  delete(vehicleId: string): Promise<Vehicle>;
+  delete(vehicleId?: string, placa?: string): Promise<boolean>;
 }
