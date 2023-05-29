@@ -1,4 +1,4 @@
-import { PostgresVehicleRepository } from "../../../repositories/PostgresProjectRepository";
+import { PostgresVehicleRepository } from "../../../repositories/PostgresVehicleRepository";
 import { GetAllVehiclesUseCase } from "./getAllVehiclesUseCase";
 
 //Repo

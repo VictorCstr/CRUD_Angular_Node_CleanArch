@@ -10,9 +10,45 @@ export class PostgresVehicleRepository implements IVehicleRepository {
 
   async create(vehicle: Vehicle): Promise<Vehicle> {
     try {
-      throw new Error("Method not implemented yet");
+      const { id, ano, chassi, marca, modelo, placa, renavam } = vehicle;
+
+      if (renavam.length != 11) {
+        throw new ApiError(
+          400,
+          "RENAVAM não possui o formato certo com 11 caracteres"
+        );
+      }
+      if (chassi.length != 17) {
+        throw new ApiError(
+          400,
+          "CHASSI não possui o formato certo com 17 caracteres"
+        );
+      }
+      if (placa.length != 7) {
+        throw new ApiError(
+          400,
+          "PLACA não possui o formato certo com 7 caracteres"
+        );
+      }
+
+      return await prisma.vehicle.create({
+        data: {
+          id,
+          chassi,
+          marca,
+          modelo,
+          placa,
+          renavam,
+          ano,
+        },
+      });
     } catch (error) {
-      throw new Error("failed to save a new vehicle on postgres");
+      console.log(error.code);
+      if (error.code === "P2002") {
+        throw new ApiError(400, "Este carro já existe");
+      } else {
+        throw new ApiError(400, error);
+      }
     }
   }
 
