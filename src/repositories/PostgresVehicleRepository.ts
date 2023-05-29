@@ -61,12 +61,29 @@ export class PostgresVehicleRepository implements IVehicleRepository {
     }
   }
 
-  async getOne(vehicleId: string): Promise<Vehicle> {
+  async getOne(vehicleId?: string, placa?: string): Promise<Vehicle> {
     try {
-      throw new Error("Method not implemented yet");
+      if (placa != undefined && placa.length != 7) {
+        throw new ApiError(
+          400,
+          "PLACA não informada ou não possui o formato certo com 7 caracteres"
+        );
+      }
+
+      return vehicleId != null
+        ? await prisma.vehicle.findFirst({
+            where: {
+              id: vehicleId,
+            },
+          })
+        : await prisma.vehicle.findFirst({
+            where: {
+              placa,
+            },
+          });
     } catch (error) {
       console.log(error);
-      throw new Error("failed searching a single vehicle on postgres");
+      throw new ApiError(400, error);
     }
   }
 
@@ -75,7 +92,7 @@ export class PostgresVehicleRepository implements IVehicleRepository {
       throw new Error("Method not implemented yet");
     } catch (error) {
       console.log(error);
-      throw new Error("failed to update a vehicle on postgres");
+      throw new ApiError(400, error);
     }
   }
   async delete(projectId: string): Promise<Vehicle> {
@@ -83,7 +100,7 @@ export class PostgresVehicleRepository implements IVehicleRepository {
       throw new Error("Method not implemented yet");
     } catch (error) {
       console.log(error);
-      throw new Error("failed to delete a vehicle on postgres");
+      throw new ApiError(400, error);
     }
   }
 }
