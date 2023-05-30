@@ -5,7 +5,7 @@ services:
     container_name: postgres_infoSistemasApi
     image: postgres:latest
     volumes:
-      - db_data_fontes:/postgres
+      - db_data_info:/postgres
     restart: always
     env_file:
       - ./.db.env
@@ -33,7 +33,7 @@ services:
       - backend
 
 volumes:
-  db_data_fontes: {}
+  db_data_info: {}
 networks:
   backend:
     driver: bridge

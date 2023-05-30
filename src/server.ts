@@ -1,5 +1,5 @@
 import app from "./app";
-let port = process.env.SERVER_PORT || 3000;
+const port = process.env.PORT || 8080;
 
 app.listen(port, () => {
   console.log(`Aplicação rodando na porta: ${port}`);
