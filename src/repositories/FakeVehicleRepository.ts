@@ -47,16 +47,17 @@ export class FakeVehicleRepository implements IVehicleRepository {
     return vehicle;
   }
 
-  async updateProject(vehicle: Vehicle): Promise<Vehicle> {
+  async updateProject(vehicleData: Vehicle): Promise<Vehicle> {
     let vehicleToUpdate = this.vehicles.find(
-      (vehicle) => vehicle.id == vehicle.id
+      (vehicle) => vehicle.id === vehicleData.id
     );
-    vehicleToUpdate.ano = vehicle.ano;
-    vehicleToUpdate.chassi = vehicle.chassi;
-    vehicleToUpdate.marca = vehicle.marca;
-    vehicleToUpdate.modelo = vehicle.modelo;
-    vehicleToUpdate.placa = vehicle.placa;
-    vehicleToUpdate.renavam = vehicle.renavam;
+
+    vehicleToUpdate.ano = vehicleData.ano;
+    vehicleToUpdate.chassi = vehicleData.chassi;
+    vehicleToUpdate.marca = vehicleData.marca;
+    vehicleToUpdate.modelo = vehicleData.modelo;
+    vehicleToUpdate.placa = vehicleData.placa;
+    vehicleToUpdate.renavam = vehicleData.renavam;
 
     return vehicleToUpdate;
   }
