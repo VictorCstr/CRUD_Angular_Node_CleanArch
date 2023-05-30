@@ -7,9 +7,9 @@ export class GetOneVehicleUseCase {
   constructor(private vehicleRepository: IVehicleRepository) {}
 
   async execute(data: IGetOneVehicleDTO): Promise<Vehicle> {
-    const { placa, vehicleId } = data;
+    const { vehicleId } = data;
 
-    const existVehicle = await this.vehicleRepository.getOne(vehicleId, placa);
+    const existVehicle = await this.vehicleRepository.getOne(vehicleId);
 
     if (!existVehicle) throw new ApiError(400, "Veículo não localizado!");
 

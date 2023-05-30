@@ -61,26 +61,13 @@ export class PostgresVehicleRepository implements IVehicleRepository {
     }
   }
 
-  async getOne(vehicleId?: string, placa?: string): Promise<Vehicle> {
+  async getOne(vehicleId: string): Promise<Vehicle> {
     try {
-      if (placa != undefined && placa.length != 7) {
-        throw new ApiError(
-          400,
-          "PLACA não informada ou não possui o formato certo com 7 caracteres"
-        );
-      }
-
-      return vehicleId != null
-        ? await prisma.vehicle.findFirst({
-            where: {
-              id: vehicleId,
-            },
-          })
-        : await prisma.vehicle.findFirst({
-            where: {
-              placa,
-            },
-          });
+      return await prisma.vehicle.findFirst({
+        where: {
+          id: vehicleId,
+        },
+      });
     } catch (error) {
       console.log(error);
       throw new ApiError(400, error);
@@ -89,7 +76,40 @@ export class PostgresVehicleRepository implements IVehicleRepository {
 
   async updateProject(vehicle: Vehicle): Promise<Vehicle> {
     try {
-      throw new Error("Method not implemented yet");
+      const { id, ano, chassi, marca, modelo, placa, renavam } = vehicle;
+
+      if (renavam != undefined && renavam.length != 11) {
+        throw new ApiError(
+          400,
+          "RENAVAM não possui o formato certo com 11 caracteres"
+        );
+      }
+      if (chassi != undefined && chassi.length != 17) {
+        throw new ApiError(
+          400,
+          "CHASSI não possui o formato certo com 17 caracteres"
+        );
+      }
+      if (placa != undefined && placa.length != 7) {
+        throw new ApiError(
+          400,
+          "PLACA não possui o formato certo com 7 caracteres"
+        );
+      }
+
+      return await prisma.vehicle.update({
+        data: {
+          chassi,
+          marca,
+          modelo,
+          placa,
+          renavam,
+          ano,
+        },
+        where: {
+          id,
+        },
+      });
     } catch (error) {
       console.log(error);
       throw new ApiError(400, error);
