@@ -43,7 +43,9 @@ export class FakeVehicleRepository implements IVehicleRepository {
   }
 
   async getOne(vehicleId: string): Promise<Vehicle> {
-    const vehicle = this.vehicles.find((vehicle) => vehicle.id == vehicleId);
+    const vehicle = this.vehicles.find(
+      (vehicle: Vehicle) => vehicle.id == vehicleId
+    );
     return vehicle;
   }
 
@@ -62,9 +64,8 @@ export class FakeVehicleRepository implements IVehicleRepository {
     return vehicleToUpdate;
   }
   async delete(vehicleId: string): Promise<boolean> {
-    let vehicle = this.vehicles.find((vehicle) => vehicle.id == vehicleId);
-    let vehicleDeleted;
-    vehicleDeleted.push(vehicle);
+    let vehicle = this.vehicles.findIndex((vehicle) => vehicle.id == vehicleId);
+    delete this.vehicles[vehicle];
     return true;
   }
 }

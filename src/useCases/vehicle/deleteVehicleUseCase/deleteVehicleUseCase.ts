@@ -9,9 +9,15 @@ export class DeleteVehicleUseCase {
   async execute(data: IDeleteVehicleDTO): Promise<Boolean> {
     const { vehicleId } = data;
 
+    if (!vehicleId) {
+      throw new ApiError(400, "Dados não informados pelo cliente");
+    }
+
     const existVehicle = await this.vehicleRepository.getOne(vehicleId);
 
-    if (!existVehicle) throw new ApiError(400, "Veículo não localizado!");
+    if (!existVehicle) {
+      throw new ApiError(400, "Veículo não localizado!");
+    }
 
     return await this.vehicleRepository.delete(vehicleId);
   }

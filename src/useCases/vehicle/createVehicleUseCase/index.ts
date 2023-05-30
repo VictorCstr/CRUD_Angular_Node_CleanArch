@@ -7,9 +7,6 @@ const vehicleRepository = new PostgresVehicleRepository();
 const userRepository = new PostgresUserRepository();
 
 //Inicializa o useCase
-const createVehicleUseCase = new CreateVehicleUseCase(
-  vehicleRepository,
-  userRepository
-);
+const createVehicleUseCase = new CreateVehicleUseCase(vehicleRepository);
 
 export { createVehicleUseCase };
