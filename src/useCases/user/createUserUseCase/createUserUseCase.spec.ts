@@ -25,6 +25,7 @@ describe("User Create, POST /user", () => {
 
     const userCreated = await useCase.execute(user);
 
+    expect(userCreated).to.be.an("object").that.is.not.undefined;
     expect(userCreated).to.have.property("user");
     expect(userCreated).to.have.property("id");
   });

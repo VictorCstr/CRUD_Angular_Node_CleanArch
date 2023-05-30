@@ -115,19 +115,14 @@ export class PostgresVehicleRepository implements IVehicleRepository {
       throw new ApiError(400, error);
     }
   }
-  async delete(vehicleId?: string, placa?: string): Promise<boolean> {
+  async delete(vehicleId?: string): Promise<boolean> {
     try {
-      vehicleId != null
-        ? await prisma.vehicle.delete({
-            where: {
-              id: vehicleId,
-            },
-          })
-        : await prisma.vehicle.delete({
-            where: {
-              placa,
-            },
-          });
+      const vehicle = await prisma.vehicle.delete({
+        where: {
+          id: vehicleId,
+        },
+      });
+
       return true;
     } catch (error) {
       console.log(error);
