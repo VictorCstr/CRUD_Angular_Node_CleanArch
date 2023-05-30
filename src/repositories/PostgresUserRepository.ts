@@ -2,31 +2,93 @@ import { PrismaClient } from "@prisma/client";
 import { IUserRepository } from "../interfaces/IUserRepository";
 import { User } from "../entities/User";
 import bcrypt from "bcrypt";
+import { ApiError } from "../errors";
+import jwt from "jsonwebtoken";
 
 const prisma = new PrismaClient();
 
 export class PostgresUserRepository implements IUserRepository {
   constructor() {}
 
-  async create(user: User): Promise<User> {
+  async create(userData: User): Promise<User> {
     try {
-      throw new Error("Method not implemented yet");
+      const { id, name, password, user, role } = userData;
+
+      const passHash = await bcrypt.hash(password, 10);
+
+      const userCreated = await prisma.user.create({
+        data: {
+          id,
+          name,
+          password: passHash,
+          user,
+          role,
+        },
+      });
+
+      return userCreated;
     } catch (error) {
-      throw new Error("failed to save user on postgres");
+      console.log(error);
+      throw new ApiError(400, error);
     }
   }
   async existUser(username: string): Promise<Boolean> {
     try {
-      throw new Error("Method not implemented yet");
+      const user = await prisma.user.findUnique({
+        where: {
+          user: username,
+        },
+      });
+      return user ? true : false;
     } catch (error) {
-      throw new Error("failed to find user on postgres");
+      console.log(error);
+      throw new ApiError(400, error);
     }
   }
-  async userIsADM(username: string): Promise<User> {
+  async userIsADM(username: string): Promise<boolean> {
     try {
-      throw new Error("Method not implemented yet");
+      const user = await prisma.user.findUnique({
+        where: {
+          user: username,
+        },
+      });
+      return user.role == "ADMIN" ? true : false;
     } catch (error) {
-      throw new Error("failed to check if user is adm on postgres");
+      console.log(error);
+      throw new ApiError(400, error);
+    }
+  }
+  async login(username: string, password: string): Promise<string> {
+    try {
+      const user = await prisma.user.findUnique({
+        where: {
+          user: username,
+        },
+      });
+
+      if (!user) {
+        throw new ApiError(400, "Usuário não está cadastrado!");
+      }
+
+      if (await !bcrypt.compareSync(password, user.password)) {
+        throw new ApiError(401, "Não autorizado!");
+      }
+
+      const token = jwt.sign(
+        {
+          id: user.id,
+          user: user.user,
+          nome: user.name,
+        },
+        process.env.SECRET_KEY,
+        {
+          expiresIn: 300,
+        }
+      );
+      return token;
+    } catch (error) {
+      console.log(error);
+      throw new ApiError(400, error);
     }
   }
 }

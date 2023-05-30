@@ -1,9 +1,6 @@
 import { randomUUID } from "crypto";
 
-enum Role {
-  ADMIN = "ADMIN",
-  GUEST = "GUEST",
-}
+export type Role = "ADMIN" | "GUEST";
 
 export class User {
   readonly id: string;
