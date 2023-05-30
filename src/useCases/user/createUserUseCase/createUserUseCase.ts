@@ -9,6 +9,10 @@ export class CreateUserUseCase {
   async execute(data: ICreateUserDTO): Promise<User> {
     const { name, password, user } = data;
 
+    if (!name || !password || !user) {
+      throw new ApiError(400, "Dados não informados pelo cliente");
+    }
+
     const existUser = await this.userRepository.existUser(user);
 
     if (existUser == true) {

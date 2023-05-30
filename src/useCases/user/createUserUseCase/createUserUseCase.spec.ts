@@ -1,32 +1,60 @@
-// import "reflect-metadata";
-// import { Transaction, Type } from "../../entities/Transaction";
-// import { FakeTransactionsRepository } from "../../repositories/FakeTransactionRepository";
-// import { RegisterTransactionUseCase } from "./registerTransactionUseCase";
+import chai from "chai";
+import { randomUUID } from "crypto";
+import { CreateUserUseCase } from "./createUserUseCase";
+import { Role, User } from "../../../entities/User";
+import bcrypt from "bcrypt";
+import { FakeUserRepository } from "../../../repositories/FakeUserRepository";
+import { ApiError } from "../../../errors";
 
-// let fakeTransactionRepository: FakeTransactionsRepository;
-// let registerTransactionUseCase: RegisterTransactionUseCase;
+const { assert, should, expect } = chai;
 
-// describe("CreateTransactionUseCase", () => {
-//   beforeAll(() => {
-//     fakeTransactionRepository = new FakeTransactionsRepository();
-//     registerTransactionUseCase = new RegisterTransactionUseCase(
-//       fakeTransactionRepository
-//     );
-//   });
-//   it("should be able to create a new transaction", async () => {
-//     const transaction = new Transaction({
-//       hash: "hash",
-//       amount: 1,
-//       uid: "wallet",
-//       merchantName: "market",
-//       merchantAddress: "São Paulo",
-//       installments: 1,
-//       type: Type.payment,
-//       transactionDate: new Date(),
-//     });
-//     const transactionCreated = await fakeTransactionRepository.save(
-//       transaction
-//     );
-//     expect(transactionCreated).toEqual(transaction);
-//   });
-// });
+describe("User Create, POST /user", () => {
+  let fakeRepository, useCase;
+  before(() => {
+    fakeRepository = new FakeUserRepository();
+    useCase = new CreateUserUseCase(fakeRepository);
+  });
+
+  it("should create a new User on database", async () => {
+    const user = {
+      name: `Usuario novo`,
+      user: `Usuario-${randomUUID()}`,
+      password: await bcrypt.hash("teste", 10),
+      role: "ADMIN" as Role,
+    };
+
+    const userCreated = await useCase.execute(user);
+
+    expect(userCreated).to.have.property("user");
+    expect(userCreated).to.have.property("id");
+  });
+
+  it("should throw an Error if User already exists on database", async () => {
+    const user = {
+      name: `Usuario novo`,
+      user: `usuario1`,
+      password: await bcrypt.hash("teste", 10),
+      role: "ADMIN" as Role,
+    };
+
+    const userCreated = await useCase.execute(user).catch((err) => {
+      expect(err.statusCode).to.equal(400);
+      expect(err.msg).to.equal("O usuario já existe");
+    });
+
+    expect(userCreated).to.be.undefined;
+  });
+
+  it("should throw an Error if User Data are not informed", async () => {
+    const user = {
+      user: `usuario10`,
+    };
+
+    const userCreated = await useCase.execute(user).catch((err) => {
+      expect(err.statusCode).to.equal(400);
+      expect(err.msg).to.equal("Dados não informados pelo cliente");
+    });
+
+    expect(userCreated).to.be.undefined;
+  });
+});

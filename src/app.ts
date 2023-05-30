@@ -13,6 +13,4 @@ app.use(express.json());
 app.use(vehiclesRouter);
 app.use(userRouter);
 
-app.listen(port, () => {
-  console.log(`Aplicação rodando na porta: ${port}`);
-});
+export default app;

@@ -12,17 +12,22 @@
     "prisma": "^4.14.1"
   },
   "devDependencies": {
+    "@types/chai": "^4.3.5",
     "@types/express": "^4.17.17",
+    "@types/mocha": "^10.0.1",
     "@types/node": "^20.2.5",
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0",
+    "ts-mocha": "^10.0.0",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.0.4"
   },
-    "scripts": {
+  "scripts": {
     "start": "NODE_PATH=./build node build/app.js",
     "build": "tsc -p .",
     "prisma": "npx prisma generate",
     "dev": "tsnd --respawn --transpile-only src/app.ts",
-    "test": "jest"
+    "test": "ts-mocha -p tsconfig.json src/useCases/**/*.spec.ts --timeout 10000"
   },
   "keywords": [],
   "author": "",
