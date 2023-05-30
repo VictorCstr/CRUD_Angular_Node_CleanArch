@@ -43,7 +43,6 @@ Exemplos:
 $ NODE_ENV=dev
 $ SECRET_KEY="paodequeijo"
 $ DATABASE_URL="postgresql://postgres:admin@host.docker.internal:5432/Fontes"
-$ REDIS_URL="redis://host.docker.internal:6379"
 
 # Faça a instalação e execução de todos os containers com o compose
 $ docker-compose up --build
