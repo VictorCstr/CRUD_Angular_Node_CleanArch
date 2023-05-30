@@ -10,19 +10,21 @@ export class FakeUserRepository implements IUserRepository {
       id: "1",
       name: "Usuario novo 1",
       user: "usuario1",
-      password: bcrypt.hash("teste", 10),
+      password: "$2b$10$UKlKQ.d4Nz/gYl/qlxTC8uQE3L4jPYvLBXzQmS8ciLzB9AGqJ.y3G",
       role: "ADMIN" as Role,
     },
     {
       id: "2",
       name: "Usuario novo 2",
       user: "usuario2",
-      password: bcrypt.hash("teste", 10),
+      password:
+        "$2b$10$UKlKQ.d4Nz / gYl / qlxTC8uQE3L4jPYvLBXzQmS8ciLzB9AGqJ.y3G",
       role: "ADMIN" as Role,
     },
   ];
 
   async create(user: User): Promise<User> {
+    user.password = await bcrypt.hash(user.password, 10);
     this.users.push(user);
     return user;
   }
@@ -37,7 +39,7 @@ export class FakeUserRepository implements IUserRepository {
     const user = this.users.find((user) => user.user == username);
 
     if (!user) {
-      throw new ApiError(400, "User not exist");
+      throw new ApiError(400, "Usuário não está cadastrado!");
     }
 
     if (await !bcrypt.compareSync(password, user.password)) {

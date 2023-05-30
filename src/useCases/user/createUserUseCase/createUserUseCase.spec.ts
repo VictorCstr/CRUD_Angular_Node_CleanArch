@@ -18,8 +18,8 @@ describe("User Create, POST /user", () => {
   it("should create a new User on database", async () => {
     const user = {
       name: `Usuario novo`,
-      user: `Usuario-${randomUUID()}`,
-      password: await bcrypt.hash("teste", 10),
+      user: `Usuario-novo}`,
+      password: "teste",
       role: "ADMIN" as Role,
     };
 
@@ -33,7 +33,7 @@ describe("User Create, POST /user", () => {
     const user = {
       name: `Usuario novo`,
       user: `usuario1`,
-      password: await bcrypt.hash("teste", 10),
+      password: "teste",
       role: "ADMIN" as Role,
     };
 
