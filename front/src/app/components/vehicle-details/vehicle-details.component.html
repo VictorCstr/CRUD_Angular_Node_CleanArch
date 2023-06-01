@@ -1,0 +1,19 @@
+<div class="container">
+  <h3 class="text-sm-center mb-5">Lista de Veículos</h3>
+  <div class="card mb-2">
+    <div class="card-body">
+      <h4 class="card-title">Modelo: {{ vehicle.modelo }}</h4>
+      <h6 class="card-subtitle">Marca: {{ vehicle.marca }}</h6>
+      <p class="card-text">Ano: {{ vehicle.ano }}</p>
+      <p class="card-text">Placa: {{ vehicle.placa }}</p>
+      <p class="card-text">Chassi: {{ vehicle.chassi }}</p>
+      <p class="card-text">Renavam: {{ vehicle.renavam }}</p>
+      <p class="card-text">Placa: {{ vehicle.placa }}</p>
+      <a routerLink="/painel/" class="btn btn-primary">Retornar a lista </a>
+      <a routerLink="/painel/update/{{ vehicle.id }}" class="btn btn-warning"
+        >Alterar
+      </a>
+      <a (click)="delete()" class="btn btn-danger"> Deletar </a>
+    </div>
+  </div>
+</div>

@@ -8,7 +8,7 @@ services:
       - db_data_info:/postgres
     restart: always
     env_file:
-      - ./.db.env
+      - ./back/.db.env
     ports:
       - "5432:5432"
     networks:
@@ -20,7 +20,7 @@ services:
       - db
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: ./back/Dockerfile
       target: development
     ports:
       - "8080:8080"
@@ -28,7 +28,23 @@ services:
       - "8080"
     restart: always
     env_file:
-      - ./.env
+      - ./back/.env
+    networks:
+      - backend
+
+  web:
+    container_name: infoSistemasWEB
+    depends_on:
+      - api
+    build:
+      context: .
+      dockerfile: ./front/Dockerfile
+      target: development
+    ports:
+      - "4200:4200"
+    expose:
+      - "4200"
+    restart: always
     networks:
       - backend
 

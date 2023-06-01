@@ -1,0 +1,12 @@
+#containerCreate {
+  width: 100%;
+  max-width: 390px;
+  padding: 15px;
+  margin: auto;
+  margin-top: 100px;
+}
+
+input {
+ padding: 20px
+}
+

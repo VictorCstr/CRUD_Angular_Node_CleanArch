@@ -1,0 +1,69 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="text-center container" id="containerCreate">
+    <img
+      class="mb-4"
+      src="/assets/person-add.svg"
+      alt=""
+      width="72"
+      height="57"
+    />
+    <h2 class="h3 mb-3 fw-normal">Preencha os dados abaixo!</h2>
+    <div class="form-group">
+      <input
+        class="form-control"
+        type="text"
+        id="name"
+        formControlName="name"
+        placeholder="Digite seu nome"
+      />
+      <div
+        class="text-danger mt-2 mb-4"
+        *ngIf="form.get('name')?.errors && form.get('name')?.touched"
+      >
+        Obrigatório informar o nome!
+      </div>
+    </div>
+
+    <div>
+      <input
+        class="form-control"
+        type="text"
+        id="user"
+        formControlName="user"
+        placeholder="Digite seu nome de usuário"
+      />
+      <div
+        class="text-danger mt-2 mb-4"
+        *ngIf="form.get('user')?.errors && form.get('user')?.touched"
+      >
+        Obrigatório informar o nome de usuário!
+      </div>
+    </div>
+
+    <div class="form-group">
+      <input
+        class="form-control"
+        type="password"
+        id="password"
+        formControlName="password"
+        placeholder="Digite sua senha"
+      />
+      <div
+        class="text-danger mt-2 mb-4"
+        *ngIf="form.get('password')?.errors && form.get('password')?.touched"
+      >
+        Obrigatório informar a sua senha!
+      </div>
+    </div>
+    <div class="text-danger mt-2 mb-4" *ngIf="error$ | async">
+      Erro ao realizar o cadastro, preencha novamente conferindo os dados.
+    </div>
+
+    <input
+      class="btn btn-primary btn-lg mt-4"
+      type="submit"
+      value="Criar"
+      [disabled]="!form.valid"
+    />
+  </div>
+</form>

@@ -1,0 +1,61 @@
+<body class="text-center container">
+  <main class="form-signin">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <img
+        class="mb-4"
+        src="/assets/person-fill-exclamation.svg"
+        alt=""
+        width="72"
+        height="57"
+      />
+      <h1 class="h3 mb-3 fw-normal">Por favor, faça o login!</h1>
+
+      <div class="form-floating">
+        <input
+          type="text"
+          class="form-control"
+          id="user"
+          formControlName="user"
+          placeholder="usuario1"
+        />
+        <label for="floatingInput">Nome de usuario</label>
+        <div
+          class="text-danger mt-2 mb-4"
+          *ngIf="form.get('user')?.errors && form.get('user')?.touched"
+        >
+          Obrigatório informar o usuário!
+        </div>
+      </div>
+      <div class="form-floating">
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          formControlName="password"
+          placeholder="senha1"
+        />
+        <label for="floatingPassword">Senha</label>
+        <div
+          class="text-danger mt-2 mb-4"
+          *ngIf="form.get('password')?.errors && form.get('password')?.touched"
+        >
+          Obrigatório informar a senha!
+        </div>
+      </div>
+      <div class="text-danger mt-2 mb-4" *ngIf="error$ | async">
+        Erro ao realizar o login, preencha novamente conferindo os dados
+      </div>
+      <button
+        class="w-100 btn btn-warning"
+        type="submit"
+        id="login"
+        [disabled]="!form.valid"
+      >
+        Login
+      </button>
+    </form>
+    <button class="btn btn-info w-100" type="submit" routerLink="/user">
+      Ainda não tem um cadastro?
+    </button>
+  </main>
+</body>

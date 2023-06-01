@@ -1,0 +1,168 @@
+<body class="text-center container" (pointerenter)="handle()">
+  <main>
+    <img
+      class="mb-4"
+      src="/assets/person-fill-exclamation.svg"
+      alt=""
+      width="72"
+      height="57"
+    />
+    <h1 class="h3 mb-3 fw-normal">{{ title }}</h1>
+
+    <form [formGroup]="form" (ngSubmit)="submitHandler()">
+      <div class="form-floating">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Fiat"
+          formControlName="marca"
+          id="marca"
+          required
+        />
+        <label for="marca">Marca</label>
+        <div
+          class="text-danger mt-2 mb-4"
+          *ngIf="form.get('marca')?.errors && form.get('marca')?.touched"
+        >
+          Obrigatório informar a marca!
+        </div>
+      </div>
+      <div class="form-floating">
+        <input
+          type="text"
+          class="form-control"
+          id="modelo"
+          placeholder="Toro"
+          formControlName="modelo"
+          required
+        />
+        <label for="modelo">Modelo</label>
+        <div
+          class="text-danger mt-2 mb-4"
+          *ngIf="form.get('modelo')?.errors && form.get('modelo')?.touched"
+        >
+          Obrigatório informar o modelo!
+        </div>
+      </div>
+      <div class="form-floating">
+        <input
+          type="number"
+          class="form-control"
+          id="ano"
+          placeholder="1999"
+          formControlName="ano"
+          required
+        />
+        <label for="ano">Ano</label>
+        <div
+          class="text-danger mt-2 mb-4"
+          *ngIf="form.get('marca')?.errors && form.get('marca')?.touched"
+        >
+          Obrigatório informar o ano!
+        </div>
+      </div>
+      <div class="form-floating">
+        <input
+          type="text"
+          class="form-control"
+          id="placa"
+          placeholder="Placa"
+          formControlName="placa"
+          maxlength="7"
+          required
+        />
+        <label for="placa">Placa</label>
+        <div
+          class="text-danger mt-1 mb-3"
+          *ngIf="form.get('placa')?.errors?.['required'] && form.get('placa')?.touched"
+        >
+          Obrigatório informar o chassi!
+        </div>
+        <div
+          class="text-danger mt-1 mb-3"
+          *ngIf="form.get('placa')?.errors?.['minlength'] && form.get('placa')?.touched"
+        >
+          O valor inserido não corresponde ao padrão de 7 dígitos
+        </div>
+        <div
+          class="text-danger mt-1 mb-3"
+          *ngIf="form.get('placa')?.errors?.['maxlength'] && form.get('placa')?.touched"
+        >
+          O valor inserido não corresponde ao padrão de 7 dígitos
+        </div>
+      </div>
+      <div class="form-floating">
+        <input
+          type="text"
+          class="form-control"
+          formControlName="chassi"
+          id="chassi"
+          placeholder="1"
+          minlength="17"
+          maxlength="17"
+          required
+        />
+        <label for="chassi">Chassi</label>
+        <div
+          class="text-danger mt-1 mb-3"
+          *ngIf="form.get('chassi')?.errors?.['required'] && form.get('chassi')?.touched"
+        >
+          Obrigatório informar o chassi!
+        </div>
+        <div
+          class="text-danger mt-1 mb-3"
+          *ngIf="form.get('chassi')?.errors?.['minlength'] && form.get('chassi')?.touched"
+        >
+          O valor inserido não corresponde ao padrão de 17 dígitos
+        </div>
+        <div
+          class="text-danger mt-1 mb-3"
+          *ngIf="form.get('chassi')?.errors?.['maxlength'] && form.get('chassi')?.touched"
+        >
+          O valor inserido não corresponde ao padrão de 17 dígitos
+        </div>
+      </div>
+      <div class="form-floating">
+        <input
+          type="text"
+          class="form-control"
+          id="renavam"
+          formControlName="renavam"
+          placeholder="Renavam"
+          minlength="11"
+          maxlength="11"
+          required
+        />
+        <label for="renavam">Renavam</label>
+        <div
+          class="text-danger mt-1 mb-3"
+          *ngIf="form.get('renavam')?.errors?.['required'] && form.get('renavam')?.touched"
+        >
+          Obrigatório informar o renavam!
+        </div>
+        <div
+          class="text-danger mt-1 mb-3"
+          *ngIf="form.get('renavam')?.errors?.['minlength'] && form.get('renavam')?.touched"
+        >
+          O valor inserido não corresponde ao padrão de 11 dígitos
+        </div>
+        <div
+          class="text-danger mt-1 mb-3"
+          *ngIf="form.get('renavam')?.errors?.['maxlength'] && form.get('renavam')?.touched"
+        >
+          O valor inserido não corresponde ao padrão de 11 dígitos
+        </div>
+      </div>
+      <button
+        class="w-25 btn btn-primary mt-3"
+        type="submit"
+        [disabled]="!form.valid"
+      >
+        {{ btnText }}
+      </button>
+    </form>
+    <button routerLink="/painel" class="w-25 btn btn-danger mt-3" type="submit">
+      Cancelar
+    </button>
+  </main>
+</body>

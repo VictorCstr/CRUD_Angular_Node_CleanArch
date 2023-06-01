@@ -1,0 +1,21 @@
+<div class="container">
+  <h3 class="text-sm-center mb-5">Lista de Veículos</h3>
+  <button class="btn btn-primary mb-3" routerLink="/painel/create">
+    Criar um novo veículo na lista
+  </button>
+  <div class="card-columns">
+    <div class="card mb-2" *ngFor="let vehicle of vehicles">
+      <div class="card-body">
+        <h4 class="card-title">
+          {{ vehicle.marca }} {{ vehicle.modelo }} - ano: {{ vehicle.ano }}
+        </h4>
+        <p class="card-text">Placa: {{ vehicle.placa }}</p>
+        <a
+          routerLink="/painel/get/{{ vehicle.id }}"
+          class="btn btn-outline-primary"
+          >Ver detalhes</a
+        >
+      </div>
+    </div>
+  </div>
+</div>
