@@ -17,9 +17,9 @@ routes.post("/user", async (req: Request, res: Response) => {
 
 routes.post("/login", async (req: Request, res: Response) => {
   try {
-    const { username, password } = req.body;
+    const { user, password } = req.body;
     const login = await loginUseCase.execute({
-      user: username,
+      user,
       password,
     });
     return res.status(200).json(login);
