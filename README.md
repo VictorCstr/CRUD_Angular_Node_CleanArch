@@ -33,8 +33,8 @@ $ git clone <https://github.com/VictorCstr/Teste_InfoSistemas>
 # Acesse a pasta do projeto no terminal
 $ cd Teste_InfoSistemas
 
-# Criar as variaveis para o container
-Postgres => db.env FILE
+# Criar as variaveis para o container da API dentro da pasta back.
+Postgres => .db.env FILE
 Exemplos:
 $ POSTGRES_USER:postgres
 $ POSTGRES_PASSWORD:admin
