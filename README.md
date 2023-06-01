@@ -49,4 +49,8 @@ $ DATABASE_URL="postgresql://postgres:admin@host.docker.internal:5432/Fontes"
 # Faça a instalação e execução de todos os containers com o compose
 $ docker-compose up --build
 
+# Para rodar os testes
+$ Em outro terminal executar o comando abaixo com o compose ligado
+$ 'docker exec -it {id do container} sh -c 'npm run test'
+
 ```
