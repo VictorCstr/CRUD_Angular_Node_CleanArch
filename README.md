@@ -7,10 +7,12 @@
 ## :computer: O projeto
 
 - Administração de Veículos para locação. Um sistema de login e criação de usuario utilizando JWT para proteção das rodas de administração dos veiculos, após autorizado possui total acesso ao painel, podendo atualizar, excluir, criar novos veículos e visualizar todos os veículos ou separados.
+- Feito posteriormente uma tela de integração front end através do framework Angular, nela é possível fazer todos os métodos citados acima.
 
 ## :computer: Tecnologias
 
 - Node, Typescript, Express
+- Angular 16, Bootstrap, HTML,CSS
 - Clean Architechture
 - SOLID, POO
 - PostgreSQL, Prisma ORM.
