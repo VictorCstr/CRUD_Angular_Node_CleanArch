@@ -28,10 +28,10 @@
 - Docker instalado na máquina
 
 # Faça o clone do repositório
-$ git clone <https://github.com/VictorCstr/Teste_InfoSistemas>
+$ git clone <https://github.com/VictorCstr/CRUD_Angular_Node_CleanArch>
 
 # Acesse a pasta do projeto no terminal
-$ cd Teste_InfoSistemas
+$ cd CRUD_Angular_Node_CleanArch
 
 # Criar as variaveis para o container da API dentro da pasta back.
 Postgres => .db.env FILE
@@ -44,7 +44,7 @@ API => .env FILE
 Exemplos:
 $ NODE_ENV=dev
 $ SECRET_KEY="paodequeijo"
-$ DATABASE_URL="postgresql://postgres:admin@host.docker.internal:5432/Fontes"
+$ DATABASE_URL="postgresql://postgres:admin@host.docker.internal:5432/Crud"
 
 # Faça a instalação e execução de todos os containers com o compose
 $ docker-compose up --build

@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   db:
-    container_name: postgres_infoSistemasApi
+    container_name: postgres_crud_db
     image: postgres:latest
     volumes:
       - db_data_info:/postgres
@@ -15,7 +15,7 @@ services:
       - backend
 
   api:
-    container_name: infoSistemasApi
+    container_name: crud_Api
     depends_on:
       - db
     build:
@@ -33,7 +33,7 @@ services:
       - backend
 
   web:
-    container_name: infoSistemasWEB
+    container_name: crud_web
     depends_on:
       - api
     build:
